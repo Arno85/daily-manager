@@ -1,3 +1,38 @@
-<p>
-  shopping-list works!
-</p>
+<div class="col-sm-6">
+  <div class="panel panel-default col-xs-12">
+    <div class="panel-heading row">
+      <div class="col-xs-10">
+        <h2>Shopping List</h2>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-primary pull-right align-bottom">Add Item</button>  
+      </div>
+    </div>
+    <div class="panel-body">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor='let item of items'>
+          <input type="checkbox" name="{{item.id}}">
+          <span>{{item.quantity}}x</span>
+          <span>{{item.name}}</span>
+          <span *ngIf="item.specs" class="specs"> - {{item.specs}}</span>
+          <div class="pull-right btn-group">
+            <button class="edit"type="button" class="btn btn-primary btn-xs" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button class="remove" type="button" class="btn btn-primary btn-xs" title="Remove"><span class="glyphicon glyphicon-remove"></span></button>
+          </div> 
+        </li>  
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="panel panel-default col-xs-12">
+    <div class="panel-heading row">
+      <div class="col-xs-12">
+          <h2>Favorites</h2>
+      </div> 
+    </div>
+    <div class="panel-body">       
+    </div>
+  </div>
+</div>
