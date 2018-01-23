@@ -6,23 +6,27 @@ import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ToDoListComponent } from './to-do-list/to-do-list.component';
 
-/*
+
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'projects',      component: ProjectsComponent },
+  { path: 'shopping-list', component: ShoppingListComponent },
+  { path: 'to-do-list',      component: ToDoListComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: '**', component: HomeComponent }
-];*/
+  { path: '**', component: ShoppingListComponent }
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShoppingListComponent,
+    ToDoListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    //RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes),
     FormsModule
   ],
   providers: [],
