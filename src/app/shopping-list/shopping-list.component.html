@@ -40,8 +40,7 @@
           <span>{{item.name}}</span>
           <span *ngIf="item.comments" class="specs"> - {{item.comments}}</span>
           <div class="pull-right btn-group">
-            <!--
-            <button class="edit"type="button" class="btn btn-primary btn-xs" title="Edit" (click)="editItem(item);openModal('addItem')"><span class="glyphicon glyphicon-pencil"></span></button>-->
+            <button class="edit"type="button" class="btn btn-primary btn-xs" title="Edit" (click)="editItem(item);openModal('addItem')"><span class="glyphicon glyphicon-pencil"></span></button>
             <button class="remove" type="button" class="btn btn-primary btn-xs" title="Remove" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
           </div> 
         </li>  
@@ -61,16 +60,16 @@
     <form (ngSubmit)="addItem(form.value)" [formGroup]="form">
       <div class="form-group">
         <label for="name">Name</label>
-        <input id="name" type="text" class="form-control" formControlName="name" (focus)="formSubmittedSuccess = false">
+        <input id="name" type="text" class="form-control" formControlName="name" (focus)="formSubmittedSuccess = false" [(ngModel)]="nameFieldValue">
         <div class="alert alert-danger" *ngIf="form.get('name').hasError('required') && formSubmittedInvalid === true">This field is required</div>
       </div>
       <div class="form-group">
         <label for="quantity">Quantity</label>
-        <input id="quantity" type="number" min="1" class="form-control" formControlName="quantity" placeholder="1">
+        <input id="quantity" type="number" min="1" class="form-control" formControlName="quantity" placeholder="1" [(ngModel)]="quantityFieldValue">
       </div>
       <div class="form-group">
         <label for="comments">Comments (brand, specs, ...)</label>
-        <textarea id="comments" type="text" class="form-control" formControlName="comments"></textarea>
+        <textarea id="comments" type="text" class="form-control" formControlName="comments" [(ngModel)]="commentsFieldValue"></textarea>
       </div>
       <button type="submit" class="btn btn-primary center-block btn-sm">Add</button>
     </form>

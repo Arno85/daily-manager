@@ -19,6 +19,9 @@ export class ShoppingListComponent implements OnInit {
   public formSubmittedSuccess: boolean = false;
   public form: any;
   public formDatePicker: any;
+  public nameFieldValue: string = '';
+  public quantityFieldValue: number = 1;
+  public commentsFieldValue: string = '';
 
   constructor(private modalService: ModalService, private shoppingListService: ShoppingListService) { }
 
@@ -39,7 +42,6 @@ export class ShoppingListComponent implements OnInit {
   }
 
   public addItem(item: Item): void{
-    
     if(item.quantity === null)
       item.quantity = 1;
     if(this.form.valid){
@@ -57,8 +59,10 @@ export class ShoppingListComponent implements OnInit {
   }
 
   public editItem(item: Item): void{
-    let indexRemoved = this.shoppingListService.removeItem(item);
-    console.log(indexRemoved);
+    this.nameFieldValue = item.name;
+    this.quantityFieldValue = item.quantity;
+    this.commentsFieldValue = item.comments;
+    this.shoppingListService.removeItem(item);
   }
 
   public getList(): void {
@@ -82,9 +86,9 @@ export class ShoppingListComponent implements OnInit {
 
   private initForms(): void {
     this.form = new FormGroup({
-      name: new FormControl('', Validators.required),
+      name: new FormControl(Validators.required),
       quantity: new FormControl(),
-      comments: new FormControl('')
+      comments: new FormControl()
     });
 
     let today = new Date().toJSON().slice(0,10);
