@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../services/modal.service';
+import { ShoppingListService } from '../services/shopping-list.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Item } from '../models/item';
 
 @Component({
   selector: 'app-shopping-list',
@@ -9,50 +11,86 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ShoppingListComponent implements OnInit {
 
+  public modalCreateList: string;
   public modalAddItem: string;
+  public items: Item[];
+  public list: string;
+  public formSubmittedInvalid: boolean = false;
+  public formSubmittedSuccess: boolean = false;
+  public form: any;
+  public formDatePicker: any;
 
-  form: any;
-
-  items: any = [
-    {
-      id: 1,
-      name: 'Concombre',
-      quantity: 3
-    },
-    {
-      id: 2,
-      name: 'Tomates Cerises',
-      quantity: 1
-    },
-    {
-      id: 3,
-      name: 'Pain',
-      quantity: 1,
-      specs: 'Saint Méthode'
-    }
-  ];
-
-  constructor(private modalService: ModalService) { }
+  constructor(private modalService: ModalService, private shoppingListService: ShoppingListService) { }
 
   public ngOnInit(): void {
     this.modalAddItem = 'addItem';
-    this.initForm();
+    this.modalCreateList = 'createList';
+    this.initForms();
+    this.getItems();
+    this.getList();
   }
 
   public openModal(id: string): void {
     this.modalService.open(id);
   }
 
-  public addItem(values): void{
-    console.log(values);
+  public getItems(): void {
+    this.items = this.shoppingListService.getItems();
   }
 
-  private initForm(): void {
+  public addItem(item: Item): void{
+    
+    if(item.quantity === null)
+      item.quantity = 1;
+    if(this.form.valid){
+      this.shoppingListService.addItem(item);
+      this.form.reset();
+      this.formSubmittedInvalid = false;
+      this.formSubmittedSuccess = true;
+    } else {
+      this.formSubmittedInvalid = true;
+    }
+  }
+
+  public removeItem(item: Item): void{
+    this.shoppingListService.removeItem(item);
+  }
+
+  public editItem(item: Item): void{
+    let indexRemoved = this.shoppingListService.removeItem(item);
+    console.log(indexRemoved);
+  }
+
+  public getList(): void {
+    this.list = this.shoppingListService.getList();
+  }
+
+  public createList(value: any): void {
+    this.shoppingListService.createList(value.date);
+    this.uncheckAllItem();
+    this.getList();
+    this.modalService.close(this.modalCreateList);
+  }
+
+  public checkItem(item: Item): void {
+    this.shoppingListService.checkItem(item);
+  }
+
+  public uncheckAllItem(): void {
+    this.shoppingListService.uncheckAllItem();
+  }
+
+  private initForms(): void {
     this.form = new FormGroup({
-      itemName: new FormControl('', Validators.required),
-      itemQuantity: new FormControl(''),
-      itemSpecs: new FormControl('')
+      name: new FormControl('', Validators.required),
+      quantity: new FormControl(),
+      comments: new FormControl('')
+    });
+
+    let today = new Date().toJSON().slice(0,10);
+
+    this.formDatePicker = new FormGroup({
+      date: new FormControl(today),
     });
   }
-
 }

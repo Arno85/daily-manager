@@ -1,6 +1,6 @@
 export interface Item {
-    id: number;
     name: string;
     quantity: number;
-    specs: string;
+    comments: string;
+    status: boolean;
 }

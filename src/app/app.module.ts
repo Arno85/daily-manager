@@ -10,6 +10,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { ModalService } from './services/modal.service';
 import { ModalComponent } from './common/modal/modal.component';
+import { ShoppingListService } from './services/shopping-list.service';
 
 
 const appRoutes: Routes = [
@@ -33,7 +34,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ModalService],
+  providers: [ModalService, ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
