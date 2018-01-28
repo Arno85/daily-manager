@@ -1,0 +1,56 @@
+.panel{
+    span{
+        font-size:1.2em;
+    }
+    .align-bottom{
+        margin-top: 20px;
+    }
+    .specs{
+        font-style: italic;
+    }
+    input[type=checkbox]{
+        width: 15px;
+        height: 15px;
+        vertical-align: top;
+    }
+    .btn-group button{
+        margin:0 4px;
+        border-radius: 3px;
+
+        span{
+            padding-top:2px;
+        }
+    }
+}
+
+.modal-header{
+    margin-top: 40px;
+    padding: 0 0 10px;
+    .alert-success{
+        margin-bottom:0;
+    }
+}
+.modal-body{
+    margin-top: 20px;
+    padding: 0;
+}
+
+h2, h3, h4{
+    display:inline;  
+}
+h3{
+    line-height:130%;
+}
+h4{
+    line-height:180%;
+}
+.rightContent{
+    float: right;
+}
+
+.list-group-item {
+    padding: 10px 0px;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}
