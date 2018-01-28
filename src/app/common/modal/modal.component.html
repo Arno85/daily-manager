@@ -1,0 +1,9 @@
+<div *ngIf="showModal" (click)="closeModalOnClickOutside($event, this)" class="modal-container">
+  <div class="modal-box">
+      <button class="btn btn-sm pull-right closeModal" (click)="closeModal(idModal)"><span class="glyphicon glyphicon-remove"></span></button>
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+  </div>
+</div>
+

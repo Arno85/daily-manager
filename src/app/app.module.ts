@@ -2,12 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
+import { ModalService } from './services/modal.service';
+import { ModalComponent } from './common/modal/modal.component';
 
 
 const appRoutes: Routes = [
@@ -21,15 +23,17 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     ShoppingListComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalService } from '../services/modal.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-list',
@@ -6,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-list.component.scss']
 })
 export class ShoppingListComponent implements OnInit {
+
+  public modalAddItem: string;
+
+  form: any;
 
   items: any = [
     {
@@ -26,9 +32,27 @@ export class ShoppingListComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private modalService: ModalService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.modalAddItem = 'addItem';
+    this.initForm();
+  }
+
+  public openModal(id: string): void {
+    this.modalService.open(id);
+  }
+
+  public addItem(values): void{
+    console.log(values);
+  }
+
+  private initForm(): void {
+    this.form = new FormGroup({
+      itemName: new FormControl('', Validators.required),
+      itemQuantity: new FormControl(''),
+      itemSpecs: new FormControl('')
+    });
   }
 
 }
