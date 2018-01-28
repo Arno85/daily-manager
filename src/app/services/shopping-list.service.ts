@@ -26,10 +26,6 @@ export class ShoppingListService {
     return removeIndex;
   }
 
-  public updateItem(item: Item){
-    let retrivedItem = this._items.find(obj => obj === item);
-  }
-
   public checkItem(item: Item): void {
     let retrivedItem = this._items.find(obj => obj === item);
     retrivedItem.status = !retrivedItem.status;
