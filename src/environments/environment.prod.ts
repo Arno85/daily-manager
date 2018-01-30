@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  urlData: "http://arnaudmartin.me/projects/daily-manager/data/data.php"
 };

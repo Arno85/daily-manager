@@ -4,11 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --env=dev",
+    "build": "ng build ",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-prod": "ng build --env=prod --base-href http://arnaudmartin.me/projects/daily-manager/"
   },
   "private": true,
   "dependencies": {

@@ -5,13 +5,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ShoppingListService {
 
   private _items: Item[] = [];
   private _list: string;
-  private _url = 'http://localhost/daily-manager/php/data.php';
+  private _url = environment.urlData;
 
   constructor(private _http: HttpClient) { }
 
