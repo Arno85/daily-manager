@@ -16,7 +16,7 @@ import { ShoppingListService } from './services/shopping-list.service';
 const appRoutes: Routes = [
   { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'to-do-list',      component: ToDoListComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'shopping-list', pathMatch: 'full'},
   { path: '**', component: ShoppingListComponent }
 ];
 
