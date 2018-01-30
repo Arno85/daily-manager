@@ -38,7 +38,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
   public getItems(): void {
-    this.items = this.shoppingListService.getItems();
+    this.shoppingListService.getItems(data => this.items = data);
   }
 
   public addItem(item: Item): void{
@@ -65,8 +65,8 @@ export class ShoppingListComponent implements OnInit {
     this.shoppingListService.removeItem(item);
   }
 
-  public getList(): void {
-    this.list = this.shoppingListService.getList();
+  public getList(): void{
+    this.shoppingListService.getList(data => this.list = data);
   }
 
   public createList(value: any): void {

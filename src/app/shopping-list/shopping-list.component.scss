@@ -9,16 +9,21 @@
         font-style: italic;
     }
     input[type=checkbox]{
-        width: 15px;
-        height: 15px;
-        vertical-align: top;
+        width: 20px;
+        height: 20px;
+        vertical-align: text-bottom;
+        position:relative;
+        top:1px;
     }
-    .btn-group button{
-        margin:0 4px;
+    .btn-group button{        
         border-radius: 3px;
+        margin:0 4px 0 4px;
 
         span{
             padding-top:2px;
+        }
+        &:last-of-type{
+            margin:0 0 0 4px;
         }
     }
 }
