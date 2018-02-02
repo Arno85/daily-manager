@@ -5,7 +5,11 @@
 
 <div class="modal-body">
     <form (ngSubmit)="isNewItem? addItem(form.value) : editItem(form.value)" [formGroup]="form">
-
+        <input  id="id" 
+                type="hidden" 
+                class="form-control" 
+                formControlName="id" 
+        >
         <div class="form-group">
             <label for="name">Name</label>
             <input  id="name" 
@@ -13,7 +17,6 @@
                     class="form-control" 
                     formControlName="name" 
                     (focus)="formSubmittedSuccess = false" 
-                    [(ngModel)]="nameFieldValue"
             >
             <div class="alert alert-danger" *ngIf="form.get('name').hasError('required') && formSubmittedInvalid === true">This field is required</div>
         </div>
@@ -25,7 +28,6 @@
                     min="1" 
                     class="form-control" 
                     formControlName="quantity" 
-                    [(ngModel)]="quantityFieldValue"
             >
         </div>
 
@@ -34,8 +36,8 @@
             <textarea   id="comments" 
                         type="text" 
                         class="form-control" 
-                        formControlName="comments" 
-                        [(ngModel)]="commentsFieldValue">
+                        formControlName="comments"
+            >
             </textarea>
         </div>
 

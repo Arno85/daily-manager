@@ -37,7 +37,7 @@
     <div class="panel-body">
       <ul class="list-group">
         <li class="list-group-item" *ngFor='let item of items'>
-          <input type="checkbox" name="{{item.id}}" (change)="checkItem(item)" [checked]="item.status == true">
+          <input type="checkbox" (change)="checkItem(item)" [checked]="item.status == true">
           <span>{{item.quantity}}x</span>
           <span>{{item.name}}</span>
           <span *ngIf="item.comments" class="specs"> - {{item.comments}}</span>

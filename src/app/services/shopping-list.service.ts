@@ -26,21 +26,31 @@ export class ShoppingListService {
   }
 
   public addItem(item: Item): void {
+    let lastItem = this._items.slice(-1)[0];
+    item.id = 1;
+    if(lastItem !== undefined)
+      item.id = lastItem.id + 1;
     item.status = false;
     this._items.push(item);
     this.saveItems().subscribe();
   }
 
-  public removeItem(item: Item): number{
+  public removeItem(item: Item): void{
     let removeIndex = this._items.indexOf(item);
     this._items.splice(removeIndex, 1);
     this.saveItems().subscribe();
-    return removeIndex;
+  }
+
+  public editItem(item: Item): void{
+    let retrievedItem = this._items.find(obj => obj.id === item.id)
+    let indexToUpdate = this._items.indexOf(retrievedItem);
+    this._items.splice(indexToUpdate, 1, item);
+    this.saveItems().subscribe();
   }
 
   public checkItem(item: Item): void {
-    let retrivedItem = this._items.find(obj => obj === item);
-    retrivedItem.status = !retrivedItem.status;
+    let retrievedItem = this._items.find(obj => obj === item);
+    retrievedItem.status = !retrievedItem.status;
     this.saveItems().subscribe();
   }
 
