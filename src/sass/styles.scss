@@ -4,10 +4,29 @@
 .alert{
     padding:5px;
 }
-/*
-[class*='col-']{
-    padding:0;
-}*/
+.rightContent{
+    float: right;
+}
+.alert-success{
+    margin-bottom:0;
+}
 .header{
     margin-bottom: 20px;
+}
+h2, h3, h4{
+    display:inline;  
+}
+h3{
+    line-height:130%;
+}
+h4{
+    line-height:180%;
+}
+.modal-header{
+    margin-top: 40px;
+    padding: 0 0 10px; 
+}
+.modal-body{
+    margin-top: 20px;
+    padding: 0;
 }
