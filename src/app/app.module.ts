@@ -14,10 +14,12 @@ import { ShoppingListService } from './services/shopping-list.service';
 import { FormItemComponent } from './shopping-list/form-item/form-item.component';
 import { FormListComponent } from './shopping-list/form-list/form-list.component';
 import { HomeComponent } from './home/home.component';
+import { TipCalculatorComponent } from './tip-calculator/tip-calculator.component';
 
 
 const appRoutes: Routes = [
   { path: 'shopping-list', component: ShoppingListComponent },
+  { path: 'tip-calculator', component: TipCalculatorComponent },
   { path: 'to-do-list',      component: ToDoListComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', component: HomeComponent }
@@ -31,7 +33,8 @@ const appRoutes: Routes = [
     ModalComponent,
     FormItemComponent,
     FormListComponent,
-    HomeComponent
+    HomeComponent,
+    TipCalculatorComponent
   ],
   imports: [
     BrowserModule,

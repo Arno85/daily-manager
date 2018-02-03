@@ -1,0 +1,55 @@
+<div class="container-fluid">
+
+  <form (ngSubmit)="calcTip(formTip.value)" [formGroup]="formTip">
+      <div class="form-group">
+        <input  id="amount" 
+                type="number" 
+                class="form-control" 
+                formControlName="amount"
+                placeholder="Enter your amount before taxes here..." 
+        >
+      </div>
+      <div class="form-group">
+        <input  id="tipRate" 
+                type="number" 
+                class="form-control" 
+                formControlName="tipRate"
+                placeholder="Tip rate - By default 15%" 
+        >
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary form-control center-block btn-sm">Calculate your bill</button>
+      </div>  
+  </form>
+
+  <div *ngIf="bill.amount" class="panel panel-default">
+    <div class="panel-heading">
+      <h3>Your Bill</h3>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Total before taxes :</td>
+          <td>{{bill.amount}} $</td>     
+        </tr>
+        <tr>
+          <td>G.S.T. ({{gstRate}}%) :</td>
+          <td>{{bill.gstAmount}} $</td>
+        </tr>
+        <tr>
+          <td>Q.S.T. ({{qstRate}}%) :</td>
+          <td>{{bill.qstAmount}} $</td>
+        </tr>
+        <tr>
+          <td>Total Bill :</td>
+          <td>{{bill.totalBill}} $</td>
+        </tr>
+        <tr>
+          <td>Tip ({{bill.tipRate}}%) :</td>
+          <td>{{bill.tipAmount}} $</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

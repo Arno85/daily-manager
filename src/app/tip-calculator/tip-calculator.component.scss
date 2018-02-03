@@ -1,0 +1,15 @@
+.panel{
+    margin-top:40px;
+}
+
+tr:nth-child(4) td{
+    font-weight: bold;
+    background: #fdb813;
+}
+tr:nth-child(5) td{
+    font-weight: bold;
+    background: #ff9c40;
+}
+td:nth-child(2){
+    text-align: right;
+}
