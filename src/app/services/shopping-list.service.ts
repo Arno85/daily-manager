@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnDestroy } from '@angular/core';
 import { Item } from '../models/item';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -6,15 +6,18 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import { environment } from '../../environments/environment';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
-export class ShoppingListService {
+export class ShoppingListService implements OnDestroy{
 
   private _items: Item[] = [];
   private _list: string;
   private _url = environment.urlData;
   private _itemsChanges: EventEmitter<Item[]> = new EventEmitter();
   private _listChanges: EventEmitter<string> = new EventEmitter();
+  private _saveItemsSubscription: Subscription;
+  private _saveListSubscription: Subscription;
 
   constructor(private _http: HttpClient) { }
 
@@ -36,14 +39,14 @@ export class ShoppingListService {
       item.id = lastItem.id + 1;
     item.status = false;
     this._items.push(item);
-    this.saveItems().subscribe().unsubscribe();
+    this._saveItemsSubscription = this.saveItems().subscribe();
     this.emitItemsListEvent(this._items);
   }
 
   public removeItem(item: Item): void{
     let removeIndex = this._items.indexOf(item);
     this._items.splice(removeIndex, 1);
-    this.saveItems().subscribe().unsubscribe();
+    this._saveItemsSubscription = this.saveItems().subscribe();
     this.emitItemsListEvent(this._items);
   }
 
@@ -51,19 +54,19 @@ export class ShoppingListService {
     let retrievedItem = this._items.find(obj => obj.id === item.id)
     let indexToUpdate = this._items.indexOf(retrievedItem);
     this._items.splice(indexToUpdate, 1, item);
-    this.saveItems().subscribe().unsubscribe();
+    this._saveItemsSubscription = this.saveItems().subscribe();
     this.emitItemsListEvent(this._items);
   }
 
   public checkItem(item: Item): void {
     let retrievedItem = this._items.find(obj => obj === item);
     retrievedItem.status = !retrievedItem.status;
-    this.saveItems().subscribe().unsubscribe();
+    this._saveItemsSubscription = this.saveItems().subscribe();
   }
 
   public uncheckAllItem(): void {
     this._items.forEach(obj => obj.status = false);
-    this.saveItems().subscribe().unsubscribe();
+    this._saveItemsSubscription = this.saveItems().subscribe();
   }
 
   private saveItems(): Observable<boolean>{
@@ -92,7 +95,7 @@ export class ShoppingListService {
 
   public createList(date: string): void {
     this._list = date;
-    this.saveList().subscribe().unsubscribe();
+    this.__saveListSubscription = this.saveList().subscribe()
     this.emitListEvent(date);
   }
 
@@ -134,4 +137,10 @@ export class ShoppingListService {
   }
   //#endregion
   
+  //#region OnDestroy method
+  public ngOnDestroy(): void {
+    this._saveItemsSubscription.unsubscribe();
+    this._saveListSubscription.unsubscribe();
+  }
+  //#endregion
 }
