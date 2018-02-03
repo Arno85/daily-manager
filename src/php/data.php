@@ -1,11 +1,13 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 
+define ('PATH', '../../data/');
+
 function saveItems(){
 
     $json = $_GET['json'];
     if(!empty($json)){
-        $file = fopen('items.json','w+');
+        $file = fopen(PATH . 'items.json','w+');
         fwrite($file, $json);
         fclose($file);
         return true;
@@ -14,7 +16,7 @@ function saveItems(){
 }
 
 function loadItems(){
-    $file = file_get_contents('items.json');
+    $file = file_get_contents(PATH . 'items.json');
     return $file;
 }
 
@@ -22,7 +24,7 @@ function saveList(){
 
     $json = $_GET['json'];
     if(!empty($json)){
-        $file = fopen('list.json','w+');
+        $file = fopen(PATH . 'list.json','w+');
         fwrite($file, $json);
         fclose($file);
         return true;
@@ -31,7 +33,7 @@ function saveList(){
 }
 
 function loadList(){
-    $file = file_get_contents('list.json');
+    $file = file_get_contents(PATH . 'list.json');
     return $file;
 }
 
