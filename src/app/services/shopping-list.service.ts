@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Item } from '../models/item';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -13,16 +13,20 @@ export class ShoppingListService {
   private _items: Item[] = [];
   private _list: string;
   private _url = environment.urlData;
+  private _itemsChanges: EventEmitter<Item[]> = new EventEmitter();
+  private _listChanges: EventEmitter<string> = new EventEmitter();
 
   constructor(private _http: HttpClient) { }
 
-  //#region public methods Items
-  public getItems(callback): any{
-    //return this._items = JSON.parse(localStorage.getItem('items'));
-    this.loadItems().subscribe(data => {
-      this._items = JSON.parse(data);
-      return callback(this._items);
-    })
+  //#region Items methods 
+  public getItems(): Observable<Item[]>{
+    //localStorage.setItem('items', JSON.stringify(this._items));
+    let params = new HttpParams()
+      .set('f', 'loadItems');
+
+    return this._http.get<Item[]>(this._url, { params: params })
+      .do(data => this._items = data)
+      .catch(this.handleError);
   }
 
   public addItem(item: Item): void {
@@ -32,50 +36,36 @@ export class ShoppingListService {
       item.id = lastItem.id + 1;
     item.status = false;
     this._items.push(item);
-    this.saveItems().subscribe();
+    this.saveItems().subscribe().unsubscribe();
+    this.emitItemsListEvent(this._items);
   }
 
   public removeItem(item: Item): void{
     let removeIndex = this._items.indexOf(item);
     this._items.splice(removeIndex, 1);
-    this.saveItems().subscribe();
+    this.saveItems().subscribe().unsubscribe();
+    this.emitItemsListEvent(this._items);
   }
 
   public editItem(item: Item): void{
     let retrievedItem = this._items.find(obj => obj.id === item.id)
     let indexToUpdate = this._items.indexOf(retrievedItem);
     this._items.splice(indexToUpdate, 1, item);
-    this.saveItems().subscribe();
+    this.saveItems().subscribe().unsubscribe();
+    this.emitItemsListEvent(this._items);
   }
 
   public checkItem(item: Item): void {
     let retrievedItem = this._items.find(obj => obj === item);
     retrievedItem.status = !retrievedItem.status;
-    this.saveItems().subscribe();
+    this.saveItems().subscribe().unsubscribe();
   }
 
   public uncheckAllItem(): void {
     this._items.forEach(obj => obj.status = false);
-    this.saveItems().subscribe();
-  }
-  //#endregion
-
-  //#region public methods List
-  public createList(date: string): void {
-    this._list = date;
-    this.saveList().subscribe();
+    this.saveItems().subscribe().unsubscribe();
   }
 
-  public getList(callback): any {
-    //return this._list = JSON.parse(localStorage.getItem('list'));
-    this.loadList().subscribe(data => {
-      this._list = JSON.parse(data)
-      return callback(this._list);
-    })
-  }
-  //#endregion
-
-  //#region private methods
   private saveItems(): Observable<boolean>{
     //localStorage.setItem('items', JSON.stringify(this._items));
     let params = new HttpParams();
@@ -87,15 +77,23 @@ export class ShoppingListService {
       .do(data => JSON.stringify(data))
       .catch(this.handleError);
   }
+  //#endregion
 
-  private loadItems(): Observable<string>{
+  //#region List methods 
+  public getList(): Observable<string>{
     //localStorage.setItem('items', JSON.stringify(this._items));
     let params = new HttpParams()
-      .set('f', 'loadItems');
+      .set('f', 'loadList');
 
     return this._http.get<string>(this._url, { params: params })
-      .do(data => JSON.stringify(data))
+      .do(data => data)
       .catch(this.handleError);
+  }
+
+  public createList(date: string): void {
+    this._list = date;
+    this.saveList().subscribe().unsubscribe();
+    this.emitListEvent(date);
   }
 
   private saveList(): Observable<boolean> {
@@ -109,20 +107,31 @@ export class ShoppingListService {
       .do(data => JSON.stringify(data))
       .catch(this.handleError);
   }
+  //#endregion
 
-  private loadList(): Observable<string>{
-    //localStorage.setItem('items', JSON.stringify(this._items));
-    let params = new HttpParams()
-      .set('f', 'loadList');
-
-    return this._http.get<string>(this._url, { params: params })
-      .do(data => JSON.stringify(data))
-      .catch(this.handleError);
-  }
-
+  //#region Error method
   private handleError(err: HttpErrorResponse) {
     console.log(err.message);
     return Observable.throw(err.message);
   }
   //#endregion
+
+  //#region Events method
+  private emitItemsListEvent(itemList: Item[]) {
+    this._itemsChanges.emit(itemList);
+  }
+
+  public getItemsEmitter() {
+    return this._itemsChanges;
+  }
+
+  private emitListEvent(list: string) {
+    this._listChanges.emit(list);
+  }
+
+  public getListEmitter() {
+    return this._listChanges;
+  }
+  //#endregion
+  
 }

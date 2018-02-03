@@ -37,4 +37,4 @@ function loadList(){
 
 $function = $_GET['f'];
 $result = $function();
-echo json_encode($result);
+echo $result;

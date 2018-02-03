@@ -12,44 +12,35 @@ import { ShoppingListComponent } from '../shopping-list.component';
 })
 export class FormItemComponent implements OnInit {
 
-  public form: any;
+  public formItem: any;
   public formSubmittedInvalid: boolean = false;
   public formSubmittedSuccess: boolean = false;
   public isNewItem: boolean;
   public titleForm: string;
 
-  constructor(private modalService: ModalService, private shoppingListService: ShoppingListService, @Inject(forwardRef(() => ShoppingListComponent)) private _parent:ShoppingListComponent) { }
+  constructor(private modalService: ModalService, private shoppingListService: ShoppingListService) { }
 
   public ngOnInit(): void {
     this.initForms();
   }
-
-  private initForms(): void {
-    this.form = new FormGroup({
-      id: new FormControl(),
-      name: new FormControl('', Validators.required),
-      quantity: new FormControl(1),
-      comments: new FormControl('')
-    });
-  }
   
   public setForm(item?:Item): void {
     if(item !== undefined){
-      this.form.setValue({id: item.id, name: item.name, quantity: item.quantity, comments: item.comments});
+      this.formItem.setValue({id: item.id, name: item.name, quantity: item.quantity, comments: item.comments});
       this.titleForm = 'Edit';
       this.isNewItem = false;
     }
     else{
-      this.form.reset({quantity: 1});
+      this.formItem.reset({quantity: 1});
       this.titleForm = 'Add';
       this.isNewItem = true;
     }  
   }
 
   public addItem(item: Item): void{
-    if(this.form.valid){
+    if(this.formItem.valid){
       this.shoppingListService.addItem(item);
-      this.form.reset({quantity: 1});
+      this.formItem.reset({quantity: 1});
       this.formSubmittedInvalid = false;
       this.formSubmittedSuccess = true;
     } else {
@@ -58,12 +49,21 @@ export class FormItemComponent implements OnInit {
   }
 
   public editItem(item: Item): void {
-    if(this.form.valid){
+    if(this.formItem.valid){
       this.shoppingListService.editItem(item);
       this.formSubmittedInvalid = false;
-      this.modalService.close(this._parent.modalItem);
+      this.modalService.close('modalItem');
     } else {
       this.formSubmittedInvalid = true;
     }
+  }
+
+  private initForms(): void {
+    this.formItem = new FormGroup({
+      id: new FormControl(),
+      name: new FormControl('', Validators.required),
+      quantity: new FormControl(1),
+      comments: new FormControl('')
+    });
   }
 }

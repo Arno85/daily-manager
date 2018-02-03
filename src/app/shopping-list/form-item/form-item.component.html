@@ -4,7 +4,7 @@
 </div>
 
 <div class="modal-body">
-    <form (ngSubmit)="isNewItem? addItem(form.value) : editItem(form.value)" [formGroup]="form">
+    <form (ngSubmit)="isNewItem? addItem(formItem.value) : editItem(formItem.value)" [formGroup]="formItem">
         <input  id="id" 
                 type="hidden" 
                 class="form-control" 
@@ -18,7 +18,7 @@
                     formControlName="name" 
                     (focus)="formSubmittedSuccess = false" 
             >
-            <div class="alert alert-danger" *ngIf="form.get('name').hasError('required') && formSubmittedInvalid === true">This field is required</div>
+            <div class="alert alert-danger" *ngIf="formItem.get('name').hasError('required') && formSubmittedInvalid === true">This field is required</div>
         </div>
 
         <div class="form-group">

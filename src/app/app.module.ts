@@ -12,6 +12,7 @@ import { ModalService } from './services/modal.service';
 import { ModalComponent } from './common/modal/modal.component';
 import { ShoppingListService } from './services/shopping-list.service';
 import { FormItemComponent } from './shopping-list/form-item/form-item.component';
+import { FormListComponent } from './shopping-list/form-list/form-list.component';
 
 
 const appRoutes: Routes = [
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     ShoppingListComponent,
     ToDoListComponent,
     ModalComponent,
-    FormItemComponent
+    FormItemComponent,
+    FormListComponent
   ],
   imports: [
     BrowserModule,
