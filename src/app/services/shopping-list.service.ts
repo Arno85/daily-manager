@@ -95,7 +95,7 @@ export class ShoppingListService implements OnDestroy{
 
   public createList(date: string): void {
     this._list = date;
-    this.__saveListSubscription = this.saveList().subscribe()
+    this._saveListSubscription = this.saveList().subscribe()
     this.emitListEvent(date);
   }
 
