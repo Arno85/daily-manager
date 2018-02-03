@@ -18,7 +18,7 @@ export class FormListComponent implements OnInit {
     this.initForms();
   }
 
-  public createList(value: string): void {
+  public createList(value: any): void {
     this._shoppingListService.createList(value.date);
     this.uncheckAllItem();
     this._modalService.close('modalList');
