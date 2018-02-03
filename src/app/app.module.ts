@@ -13,13 +13,14 @@ import { ModalComponent } from './common/modal/modal.component';
 import { ShoppingListService } from './services/shopping-list.service';
 import { FormItemComponent } from './shopping-list/form-item/form-item.component';
 import { FormListComponent } from './shopping-list/form-list/form-list.component';
+import { HomeComponent } from './home/home.component';
 
 
 const appRoutes: Routes = [
   { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'to-do-list',      component: ToDoListComponent },
-  { path: '', redirectTo: 'shopping-list', pathMatch: 'full'},
-  { path: '**', component: ShoppingListComponent }
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     ToDoListComponent,
     ModalComponent,
     FormItemComponent,
-    FormListComponent
+    FormListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,41 @@
+$shopping-card : #b784a7;
+$tip-card : #fdb813;
+
+.container-fluid{
+    padding:30px 15px;
+}
+.card{
+    display: inline-block;
+    width: 45%;
+    margin: 0 2%;
+    height: 0;
+    padding-bottom: 45%;
+    text-align: center;
+
+    transition: opacity 0.4s linear;
+    &:hover{
+        opacity:0.8;
+    }
+
+    img{
+        margin: 10px 0;
+    }
+    h1{
+        margin-top: 0;
+        font-size:1.2em;
+        color: #000000;
+        text-transform: uppercase;
+    }
+}
+.shopping{
+    background: $shopping-card;
+    padding:10px;
+}
+.tipCalc{
+    background: $tip-card;
+    padding:10px;
+}
+img{
+    width: 50%;
+    height: auto;
+}
