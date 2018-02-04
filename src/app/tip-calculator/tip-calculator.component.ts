@@ -11,7 +11,7 @@ export class TipCalculatorComponent implements OnInit {
   public formTip: any;
   public bill: any = {};
   public gstRate: number = 5;
-  public qstRate: number = 9.75;
+  public qstRate: number = 9.975;
 
   constructor() { }
 
