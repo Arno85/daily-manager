@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  urlData: "http://localhost/daily-manager/src/php/data.php"
+  urlData: "http://localdev/daily-manager/src/php/data.php"
 };
