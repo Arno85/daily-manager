@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../services/modal.service';
 import { ShoppingListService } from '../../services/shopping-list.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FacebookService, InitParams, LoginResponse, UIParams, UIResponse } from 'ngx-facebook';
 
 @Component({
   selector: 'app-form-list',
@@ -12,7 +13,14 @@ export class FormListComponent implements OnInit {
 
   public formList: any;
 
-  constructor(private _modalService: ModalService, private _shoppingListService: ShoppingListService) { }
+  constructor(private _modalService: ModalService, private _shoppingListService: ShoppingListService, private _fb: FacebookService) {
+    let initParams: InitParams = {
+      appId: '190907408328021',
+      xfbml: true,
+      version: 'v2.12'
+    };
+    _fb.init(initParams);
+  }
 
   public ngOnInit(): void {
     this.initForms();
@@ -22,6 +30,7 @@ export class FormListComponent implements OnInit {
     this._shoppingListService.createList(value.date);
     this.uncheckAllItem();
     this._modalService.close('modalList');
+    this.sendMessageByFacebook();
   }
 
   public uncheckAllItem(): void {
@@ -33,6 +42,17 @@ export class FormListComponent implements OnInit {
     this.formList = new FormGroup({
       date: new FormControl(today, Validators.required)
     });
+  }
+
+  private sendMessageByFacebook(): void {
+    let params: UIParams = {
+      link: 'http://arnaudmartin.me/projects/daily-manager/#/shopping-list',
+      method: 'send',
+      to: '1447762374'
+    };
+    this._fb.ui(params)
+      .then((res: UIResponse) => console.log(res))
+      .catch((e: any) => console.error(e));
   }
 
 }

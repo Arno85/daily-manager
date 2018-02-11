@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FacebookModule } from 'ngx-facebook';
 
 
 import { AppComponent } from './app.component';
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes, { useHash: true }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FacebookModule.forRoot()
   ],
   providers: [ModalService, ShoppingListService],
   bootstrap: [AppComponent]
