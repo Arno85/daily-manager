@@ -1,0 +1,24 @@
+<header>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#">{{title}}</a>
+      </div>
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a routerLink="/shopping-list" routerLinkActive="active">Shopping list</a></li>
+          <li><a routerLink="/tip-calculator" routerLinkActive="active">Tip Calculator</a></li>
+          <!--<li><a routerLink="/to-do-list" routerLinkActive="active">To do list</a></li>-->
+        </ul>  
+      </div>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</header>
+

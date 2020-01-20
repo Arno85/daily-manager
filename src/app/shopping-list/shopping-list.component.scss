@@ -1,0 +1,46 @@
+.panel{
+    span{
+        font-size:1.2em;
+    }
+    .align-bottom{
+        margin-top: 20px;
+    }
+    .specs{
+        font-style: italic;
+    }
+    input[type=checkbox]{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        vertical-align: text-bottom;
+        position:relative;
+        top:1px;
+    }
+    .btn-group button{        
+        border-radius: 3px;
+        margin:0 4px 0 4px;
+
+        span{
+            padding-top:2px;
+        }
+        &:last-of-type{
+            margin:0 0 0 4px;
+        }
+    }
+}
+
+.list-group-item {
+    padding: 10px 0px;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.panel-body {
+    p{
+        display:inline-block;
+    }
+    .checked{
+        text-decoration: line-through;
+    }
+}

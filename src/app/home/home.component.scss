@@ -1,0 +1,52 @@
+$shopping-card : #b784a7;
+$tip-card : #fdb813;
+
+.container-fluid{
+    padding:30px 15px;
+}
+.card{
+    position: relative;   
+    transition: opacity 0.4s linear;
+
+    &:after{
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+
+    &:hover{
+        opacity:0.8;
+    }
+    h2{
+        display: block;
+        margin-top: 10px;
+        font-size:1em;
+        font-weight: bold;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: #000000;
+        text-transform: uppercase;
+    }
+}
+.content{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center; 
+}
+.shopping{
+    background: $shopping-card;
+}
+.tipCalc{
+    background: $tip-card;
+}
+img{
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+}

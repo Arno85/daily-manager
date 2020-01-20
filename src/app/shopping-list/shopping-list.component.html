@@ -1,0 +1,43 @@
+<div class="container-fluid">
+
+  <div class="row header">
+      <div class="col-xs-12">
+        <h2>{{title}}</h2>
+        <button class="btn btn-warning rightContent btn-sm" (click)="openModal('modalList')">New List</button>
+      </div>
+  </div>
+
+  <div class="panel panel-default row">
+    <div class="panel-heading">
+        <h4>List of : {{list}}</h4>
+        <button class="btn btn-primary rightContent btn-sm" (click)="openModal('modalItem'); formItem.setForm()">
+          Add Item
+        </button>  
+    </div>
+    <div class="panel-body">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor='let item of items'>
+          <input type="checkbox" (change)="checkItem(item)" [checked]="item.status">
+          <p [ngClass]="{checked : item.status === true}">
+            <span>{{item.quantity}}x </span>
+            <span>{{item.name}} </span>
+            <span *ngIf="item.comments" class="specs"> - {{item.comments}}</span>
+          </p>
+          <div class="pull-right btn-group">
+            <button class="edit"type="button" class="btn btn-primary btn-xs" title="Edit" (click)="openModal('modalItem'); formItem.setForm(item)"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button class="remove" type="button" class="btn btn-primary btn-xs" title="Remove" (click)="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></button>
+          </div> 
+        </li>  
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<app-modal [idModal]="modalItem">
+    <app-form-item></app-form-item>
+</app-modal>
+
+<app-modal [idModal]="modalList">
+    <app-form-list></app-form-list>  
+</app-modal>

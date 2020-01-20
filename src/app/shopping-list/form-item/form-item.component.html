@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3>{{titleForm}} Item</h3>
+    <div class="alert alert-success rightContent" *ngIf="formSubmittedSuccess === true">Added !</div>
+</div>
+
+<div class="modal-body">
+    <form (ngSubmit)="isNewItem? addItem(formItem.value) : editItem(formItem.value)" [formGroup]="formItem">
+        <input  id="id" 
+                type="hidden" 
+                class="form-control" 
+                formControlName="id" 
+        >
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input  id="name" 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="name" 
+                    (focus)="formSubmittedSuccess = false" 
+            >
+            <div class="alert alert-danger" *ngIf="formItem.get('name').hasError('required') && formSubmittedInvalid === true">This field is required</div>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input  id="quantity" 
+                    type="number" 
+                    min="1" 
+                    class="form-control" 
+                    formControlName="quantity" 
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="comments">Comments (brand, specs, ...)</label>
+            <textarea   id="comments" 
+                        type="text" 
+                        class="form-control" 
+                        formControlName="comments"
+            >
+            </textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary center-block btn-sm">{{titleForm}}</button>
+
+    </form>
+</div>
